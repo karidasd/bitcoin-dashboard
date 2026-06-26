@@ -99,7 +99,7 @@ const mainChart = LightweightCharts.createChart(mainChartContainer, {
     autoSize: true,
     layout: { background: { type: 'solid', color: 'transparent' }, textColor: COLOR_MUTED, fontFamily: "'JetBrains Mono', monospace" },
     grid: { vertLines: { color: COLOR_GRID }, horzLines: { color: COLOR_GRID } },
-    crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+    crosshair: { mode: 0 },
     rightPriceScale: { borderColor: COLOR_GRID },
     timeScale: { borderColor: COLOR_GRID, timeVisible: true }
 });
