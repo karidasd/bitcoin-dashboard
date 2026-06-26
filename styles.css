@@ -406,3 +406,29 @@ ul li:nth-child(5) { animation-delay: 0.25s; }
     background: linear-gradient(to right, transparent, rgba(0,255,163,0.1), transparent);
     font-size: 12px;
 }
+
+/* Interactive Inputs */
+.interactive-input {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    width: 65px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    outline: none;
+    text-align: right;
+    transition: all 0.2s;
+}
+.interactive-input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 5px var(--green-glow);
+    background: rgba(0,0,0,0.8);
+}
+/* Hide arrows in number inputs */
+.interactive-input::-webkit-outer-spin-button,
+.interactive-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
