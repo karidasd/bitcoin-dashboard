@@ -96,6 +96,7 @@ function calculateZigZag(data, lookback=3) {
 // ==========================================
 const mainChartContainer = document.getElementById('mainChartContainer');
 const mainChart = LightweightCharts.createChart(mainChartContainer, {
+    autoSize: true,
     layout: { background: { type: 'solid', color: 'transparent' }, textColor: COLOR_MUTED, fontFamily: "'JetBrains Mono', monospace" },
     grid: { vertLines: { color: COLOR_GRID }, horzLines: { color: COLOR_GRID } },
     crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
@@ -113,6 +114,7 @@ const volumeSeries = mainChart.addHistogramSeries({
 
 const cvdChartContainer = document.getElementById('cvdChartContainer');
 const cvdChart = LightweightCharts.createChart(cvdChartContainer, {
+    autoSize: true,
     layout: { background: { type: 'solid', color: 'transparent' }, textColor: COLOR_MUTED },
     grid: { vertLines: { visible: false }, horzLines: { color: COLOR_GRID } },
     rightPriceScale: { borderColor: 'transparent' },
@@ -121,10 +123,6 @@ const cvdChart = LightweightCharts.createChart(cvdChartContainer, {
 const cvdSeries = cvdChart.addLineSeries({ color: COLOR_ORANGE, lineWidth: 2 });
 mainChart.timeScale().subscribeVisibleTimeRangeChange(range => cvdChart.timeScale().setVisibleRange(range));
 
-new ResizeObserver(() => {
-    mainChart.applyOptions({ width: mainChartContainer.clientWidth, height: mainChartContainer.clientHeight });
-    cvdChart.applyOptions({ width: cvdChartContainer.clientWidth, height: cvdChartContainer.clientHeight });
-}).observe(mainChartContainer);
 
 
 // ==========================================
@@ -237,16 +235,17 @@ async function fetchHistoryAndCalculate() {
 }
 
 function connectLive() {
-    const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${SYMBOL.toLowerCase()}@kline_${INTERVAL}/${SYMBOL.toLowerCase()}@depth10@100ms`);
+    const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${SYMBOL.toLowerCase()}@kline_${INTERVAL}/${SYMBOL.toLowerCase()}@depth10@100ms`);
     
     ws.onmessage = (event) => {
         try {
-            const msg = JSON.parse(event.data);
+            const raw = JSON.parse(event.data);
+            const msg = raw.data || raw; // Handle both /ws/ and /stream formats just in case
             
             // KLINE UPDATE
             if (msg.e === 'kline' && msg.k) {
                 const k = msg.k;
-                const time = k.t / 1000;
+                const time = Math.floor(k.t / 1000);
                 const open = parseFloat(k.o);
                 const high = parseFloat(k.h);
                 const low = parseFloat(k.l);
