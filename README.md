@@ -2,45 +2,92 @@
   <img src="logo.png" alt="Bitcoin Dashboard Logo" width="300">
 </p>
 
-# Bitcoin Algorithmic Trading Dashboard 🚀
+<h1 align="center">Bitcoin Algorithmic Trading Dashboard 🚀</h1>
 
-A real-time, client-side only Bitcoin Trading Dashboard built exclusively with HTML, CSS, and vanilla JavaScript. Designed with a premium **Cyberpunk / Glassmorphism** aesthetic.
+<p align="center">
+  <strong>A Real-Time, Client-Side Trading Terminal built with Vanilla JavaScript</strong><br>
+  <em>Cyberpunk Aesthetic | Sub-second WebSockets | Zero Backend</em>
+</p>
 
-This project was built for **educational purposes** to demonstrate how to aggregate real-time financial data, technical analysis algorithms, and risk management calculators directly in the browser, without relying on any backend server.
+<p align="center">
+  <a href="https://karidasd.github.io/bitcoin-dashboard/"><b>🌐 VIEW LIVE DASHBOARD HERE</b></a>
+</p>
 
-## 🎯 Features
+---
 
-- **Real-Time Data Integration**: Directly connects to Binance Spot & Futures APIs (`fapi.binance.com` & `fstream.binance.com`).
-- **Live Orderbook & Liquidations**: Uses WebSockets to stream the top of the DOM (Depth of Market) and live futures liquidations.
-- **Client-Side Technical Analysis**: Calculates RSI, MACD, and Exponential Moving Averages (EMA) locally in JavaScript based on the latest 300 15m klines.
-- **Market Structure Simulator**: Includes a custom ZigZag algorithm to map out local highs and lows, visualizing Elliott Waves and Wyckoff Schematics.
-- **Fear & Greed Index**: Fetches the daily sentiment from the `alternative.me` public API.
-- **Interactive Risk Management**: A dynamic Position Sizing Calculator that adjusts required capital based on user-defined Risk % and Stop Loss distances.
-- **Responsive Layout**: Fluid CSS Grid that adapts and provides scrollbars for smaller screens.
+## 📖 Project Overview
+
+This project was developed as a **Master Plan Proof-of-Concept** to demonstrate how modern browsers can handle heavy financial data aggregation, mathematical computations, and real-time WebSocket streaming entirely on the client side. 
+
+By eliminating the need for a backend server or database, this dashboard runs 100% locally in the browser and can be hosted for free on GitHub Pages. It integrates concepts from **ICT (Inner Circle Trader)**, **Wyckoff Theory**, **Elliott Waves**, and **Orderflow / Liquidity Analysis**.
+
+---
+
+## ⚡ Core Features
+
+### 📡 Real-Time Data Streams (Binance API)
+- **Zero-Latency Data**: Direct connection to Binance Futures API (`fapi.binance.com`) and WebSockets (`fstream.binance.com`).
+- **Live DOM (Depth of Market)**: 100ms real-time updates of the top orderbook bids and asks.
+- **Liquidations Tracker**: Listens to the `@forceOrder` stream to instantly visualize when over-leveraged long or short positions are liquidated.
+
+### 🧮 Client-Side Technical Analysis (TA)
+- **Algorithmic Indicators**: RSI, MACD, and Stochastic oscillators are calculated purely in JavaScript using the latest 300 15m Klines.
+- **ZigZag / Market Structure**: A custom client-side ZigZag algorithm maps out local Highs and Lows to simulate Elliott Wave counts and Wyckoff Schematics.
+- **Fear & Greed Index**: Dynamically fetches daily crypto market sentiment from the public `alternative.me` API.
+
+### 🛡️ Interactive Risk Management
+- **Position Sizing Calculator**: An interactive panel where traders can input their Account Equity, Risk Percentage, Entry, and Stop Loss. The JavaScript engine instantly calculates the exact USDT position size and leverage ratio required to maintain strict risk parameters.
+- **Portfolio Metrics**: Visualizes Drawdown, Value at Risk (VaR), and Sharpe Ratios.
+
+### 🎨 Cyberpunk UI / UX
+- **Glassmorphism Design**: Custom CSS gradients, neon accents (Green/Red/Orange), and animated backgrounds.
+- **Responsive Grid**: Built with CSS Grid `minmax` functions and flexbox to ensure the layout adapts to smaller laptop screens with proper scrollable overflow limits.
+
+---
+
+## ⚠️ Architectural Constraints & Educational Limitations
+
+This project is an **Educational Sandbox** and explicitly highlights the trade-offs between Client-Side Architectures and traditional Backend deployments.
+
+### Why not Streamlit or Python?
+During development, deploying this as a Python **Streamlit** app was considered to enable real Machine Learning models (LSTMs, XGBoost, HMM). However, it was rejected in favor of a Static Frontend for the following reasons:
+1. **WebSocket Freezing**: Streamlit is synchronous and reruns the entire script on every state change. Handling a 100ms Binance WebSocket stream causes severe UI lag, memory leaks, and crashing.
+2. **"Sleep" Mode & Resource Limits**: Free cloud tiers (like Streamlit Community Cloud) provide limited RAM (1GB) and put apps to "sleep" after inactivity. A trading terminal must be instant.
+3. **UI Rigidity**: Streamlit's UI is grid-locked. Achieving our absolute-positioned, dense Cyberpunk Grid layout is natively supported via CSS, whereas Streamlit components are highly rigid.
+
+### The Trade-off (What is Fake/Simulated?)
+Because there is no Python Backend running continuously, **Machine Learning inference is impossible on the client side**. 
+- The **Market Regime Detection (HMM)** and **Machine Learning Models** (LSTM, XGBoost) panels display **simulated/static visual approximations**. They are UI placeholders demonstrating *where* backend model outputs would theoretically feed into the dashboard.
+
+---
+
+## 🚨 DISCLAIMER & RISK WARNING (NOT FINANCIAL ADVICE)
+
+**FOR EDUCATIONAL AND RESEARCH PURPOSES ONLY.**
+
+This dashboard is a programming demonstration. It is **NOT** a financial tool, **NOT** trading advice, and **NOT** a recommendation to buy or sell any asset.
+
+- **High Risk**: Trading cryptocurrencies, especially Perpetual Futures with leverage, involves an extremely high level of risk and may not be suitable for all investors. You can lose your entire capital.
+- **Bugs and Latency**: This dashboard runs locally in your browser. API rate limits, browser memory limits, or network latency can cause the data shown to be delayed, inaccurate, or completely wrong.
+- **No Liability**: The creator of this code accepts absolutely no liability for any financial losses, data inaccuracies, or bugs. **Never make financial decisions based on a JavaScript web application.**
+
+---
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+).
+- **Frontend Core**: HTML5, CSS3, Vanilla JavaScript (ES6+).
 - **Charting Libraries**: 
-  - [Lightweight Charts (TradingView)](https://tradingview.github.io/lightweight-charts/) for high-performance candlestick and volume rendering.
-  - [Chart.js](https://www.chartjs.org/) for oscillators, liquidation bars, and gauge charts.
-
-## ⚠️ Architectural Constraints & Decisions
-
-During development, we explored the possibility of deploying this as a Python **Streamlit** app to enable real Machine Learning models (LSTMs, XGBoost, HMM). However, we deliberately chose to keep it a **Static Frontend Site (GitHub Pages)** due to the following strict constraints:
-
-1. **Sub-second WebSocket Performance**: Streamlit executes its entire Python script from top to bottom on every state change. Handling a 100ms WebSocket stream (like Binance's orderbook) would cause severe UI lag or crashing. A static JS frontend handles this effortlessly.
-2. **Memory & "Sleep" Limitations**: Free cloud tiers (like Streamlit Community Cloud) provide ~1GB RAM and put apps to "sleep" after inactivity. Waking the app and loading heavy ML models would destroy the "instant" UX of a trading terminal.
-3. **Pixel-Perfect UI Control**: Achieving the complex, absolute-positioned, dense Cyberpunk Grid layout is natively supported via CSS Grid, whereas Streamlit's UI components are highly rigid.
-4. **100% Free Hosting**: By relying solely on client-side JS to do the heavy lifting (math calculations, API fetching), the entire dashboard can be hosted for free forever on GitHub Pages.
-
-*Note: The "Machine Learning Models" panel currently displays simulated/static predictions for visual representation, as running deep learning inference purely on the client side without a backend was out of scope.*
-
-## 🚀 How to Run
-
-1. Clone the repository.
-2. Open `index.html` in any modern web browser.
-3. No build steps, no npm install, no backend server required!
+  - [Lightweight Charts (TradingView)](https://tradingview.github.io/lightweight-charts/) (v4.1.1) for high-performance candlestick rendering.
+  - [Chart.js](https://www.chartjs.org/) (v4.4.1) for analytical graphs, liquidation bars, and gauge charts.
+- **Deployment**: GitHub Pages (100% Serverless).
 
 ---
-*Disclaimer: This dashboard is purely for educational purposes and is not financial advice.*
+
+## 🚀 How to Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/karidasd/bitcoin-dashboard.git
+   ```
+2. Open `index.html` in any modern web browser (Chrome, Edge, Brave, Firefox).
+3. **No build steps, no npm install, no backend server required!**
