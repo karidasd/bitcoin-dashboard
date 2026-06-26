@@ -132,7 +132,7 @@ const ctxRegime = document.getElementById('regimeChart').getContext('2d');
 new Chart(ctxRegime, { type: 'doughnut', data: { labels: ['BULL', 'ACC', 'DIST', 'BEAR', 'VOL'], datasets: [{ data: [0.28, 0.21, 0.17, 0.24, 0.10], backgroundColor: [COLOR_GREEN, COLOR_BLUE, COLOR_RED, COLOR_ORANGE, '#555566'], borderWidth: 1, borderColor: '#111' }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '65%' } });
 
 const ctxElliott = document.getElementById('elliottChart').getContext('2d');
-const elliottChartInstance = new Chart(ctxElliott, { type: 'line', data: { labels: [], datasets: [{ data: [], borderColor: COLOR_BLUE, backgroundColor: createGradient(ctxElliott, 'rgba(0, 229, 255, 0.2)', 'rgba(0, 229, 255, 0)'), fill: true, tension: 0 }] }, options: { ...commonLineOptions, scales: { x: { display: true, grid: { display: false, drawBorder: false }, ticks: { display: false } }, y: { display: true, position: 'right', grid: { color: COLOR_GRID } } } } });
+const elliottChartInstance = new Chart(ctxElliott, { type: 'line', data: { labels: [], datasets: [{ data: [], borderColor: COLOR_BLUE, backgroundColor: createGradient(ctxElliott, 'rgba(0, 229, 255, 0.2)', 'rgba(0, 229, 255, 0)'), fill: true, tension: 0, spanGaps: true }] }, options: { ...commonLineOptions, scales: { x: { display: true, grid: { display: false, drawBorder: false }, ticks: { display: false } }, y: { display: true, position: 'right', grid: { color: COLOR_GRID } } } } });
 
 const ctxWyckoff = document.getElementById('wyckoffChart').getContext('2d');
 const wyckoffChartInstance = new Chart(ctxWyckoff, { type: 'line', data: { labels: [], datasets: [{ data: [], borderColor: COLOR_ORANGE, backgroundColor: createGradient(ctxWyckoff, 'rgba(255, 176, 0, 0.2)', 'rgba(255, 176, 0, 0)'), fill: true, tension: 0.2 }] }, options: { ...commonLineOptions, scales: { y: { display: true, position: 'right', grid: { color: COLOR_GRID } } } } });
@@ -175,7 +175,7 @@ let klinesHistory = [];
 
 async function fetchHistoryAndCalculate() {
     try {
-        const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${INTERVAL}&limit=300`);
+        const res = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${SYMBOL}&interval=${INTERVAL}&limit=300`);
         const data = await res.json();
         
         const klines = [];
@@ -235,7 +235,7 @@ async function fetchHistoryAndCalculate() {
 }
 
 function connectLive() {
-    const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${SYMBOL.toLowerCase()}@kline_${INTERVAL}/${SYMBOL.toLowerCase()}@depth10@100ms`);
+    const ws = new WebSocket(`wss://fstream.binance.com/stream?streams=${SYMBOL.toLowerCase()}@kline_${INTERVAL}/${SYMBOL.toLowerCase()}@depth10@100ms`);
     
     ws.onmessage = (event) => {
         try {
