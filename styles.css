@@ -1,30 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    /* Vibrant Deep Space / Cyberpunk Gradient */
-    --bg-color-1: #0f0c29;
-    --bg-color-2: #302b63;
-    --bg-color-3: #121020;
+    /* More Vibrant Cyberpunk Background */
+    --bg-color-1: #151136;
+    --bg-color-2: #241d50;
+    --bg-color-3: #1b1540;
     
-    /* Glassmorphism Panels */
-    --panel-bg: rgba(25, 20, 45, 0.45);
-    --panel-border: rgba(0, 229, 255, 0.15);
-    --panel-hover-border: rgba(0, 255, 163, 0.6);
-    --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* Brighter Glassmorphism Panels */
+    --panel-bg: rgba(40, 35, 75, 0.6);
+    --panel-border: rgba(0, 229, 255, 0.25);
+    --panel-hover-border: rgba(0, 255, 163, 0.8);
+    --panel-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
     
-    --text-main: #f8f9fa;
-    --text-muted: #a5a5c2;
+    --text-main: #ffffff;
+    --text-muted: #c8c8e6;
     --text-highlight: #ffffff;
     
-    /* Neon Colors */
+    /* Brighter Neon Colors */
     --green: #00ffa3;
-    --green-glow: rgba(0, 255, 163, 0.6);
+    --green-glow: rgba(0, 255, 163, 0.8);
     --red: #ff3366;
-    --red-glow: rgba(255, 51, 102, 0.6);
+    --red-glow: rgba(255, 51, 102, 0.8);
     --blue: #00e5ff;
-    --blue-glow: rgba(0, 229, 255, 0.6);
+    --blue-glow: rgba(0, 229, 255, 0.8);
     --orange: #ffb000;
-    --purple: #b026ff;
+    --purple: #d15cff;
     
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
