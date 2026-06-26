@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Master Plan Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="dashboard-header">
+        <h1>MASTER PLAN BITCOIN - QUANT ALGO - ICT - WYCKOFF - ELLIOTT - ORDERFLOW - ML - RISK PARITY</h1>
+        <p>"Η ΑΓΟΡΑ ΕΙΝΑΙ ΕΝΑ ΣΥΝΘΕΤΟ ΠΡΟΣΑΡΜΟΣΤΙΚΟ ΣΥΣΤΗΜΑ - ΕΠΙΒΙΩΝΕΙ Ο ΕΥΚΑΜΠΤΟΣ, ΟΧΙ Ο ΣΙΓΟΥΡΟΣ"</p>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- LEFT COLUMN -->
+        <div class="col-left">
+            <div class="panel" id="panel-1">
+                <div class="panel-header">1. MACRO FRAMEWORK</div>
+                <div class="panel-content">
+                    <ul>
+                        <li><span class="bullet green"></span> M2 Global Liquidity</li>
+                        <li><span class="bullet green"></span> DXY (Inverse)</li>
+                        <li><span class="bullet red"></span> US10Y Real Yield</li>
+                        <li><span class="bullet green"></span> BTC Dominance</li>
+                        <li><span class="bullet green"></span> Fear & Greed Index</li>
+                        <li><span class="bullet green"></span> ETF Flows (Spot)</li>
+                        <li><span class="bullet red"></span> CVD (24h)</li>
+                        <li><span class="bullet green"></span> Hashrate</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel" id="panel-2">
+                <div class="panel-header">2. MARKET REGIME DETECTION (HMM / ML)</div>
+                <div class="panel-content flex-row">
+                    <table class="data-table small">
+                        <thead><tr><th>Regime</th><th>Probability</th></tr></thead>
+                        <tbody>
+                            <tr><td class="green">BULL TREND</td><td>0.28</td></tr>
+                            <tr><td class="blue">ACCUMULATION</td><td>0.21</td></tr>
+                            <tr><td class="red">DISTRIBUTION</td><td>0.17</td></tr>
+                            <tr><td class="orange">BEAR TREND</td><td>0.24</td></tr>
+                            <tr><td class="gray">HIGH VOLATILITY</td><td>0.10</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="chart-container-small">
+                        <canvas id="regimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" id="panel-3">
+                <div class="panel-header">3. TOP-DOWN TIMEFRAME ALIGNMENT</div>
+                <div class="panel-content">
+                    <table class="data-table">
+                        <thead><tr><th>TF</th><th>Trend</th><th>Structure</th><th>Momentum</th></tr></thead>
+                        <tbody>
+                            <tr><td>1W</td><td class="green">↑</td><td class="green">HH/HL</td><td><div class="momentum-bar-container"><div class="momentum-bar green" style="width: 80%"></div></div></td></tr>
+                            <tr><td>1D</td><td class="green">↑</td><td class="green">BoSL</td><td><div class="momentum-bar-container"><div class="momentum-bar green" style="width: 70%"></div></div></td></tr>
+                            <tr><td>4H</td><td class="green">↑</td><td class="green">HiS</td><td><div class="momentum-bar-container"><div class="momentum-bar red" style="width: 40%"></div></div></td></tr>
+                            <tr><td>1H</td><td class="green">↑</td><td class="green">LHL</td><td><div class="momentum-bar-container"><div class="momentum-bar red" style="width: 50%"></div></div></td></tr>
+                            <tr><td>15m</td><td class="orange">↑</td><td class="red">LHL</td><td><div class="momentum-bar-container"><div class="momentum-bar red" style="width: 60%"></div></div></td></tr>
+                            <tr><td>5m</td><td class="orange">↑</td><td class="red">LH/LL</td><td><div class="momentum-bar-container"><div class="momentum-bar red" style="width: 70%"></div></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="panel-4">
+                <div class="panel-header">4. ELLIOTT WAVE COUNT (1W)</div>
+                <div class="panel-content chart-container" style="height: 150px;">
+                    <canvas id="elliottChart"></canvas>
+                </div>
+            </div>
+            <div class="panel" id="panel-5">
+                <div class="panel-header">5. WYCKOFF SCHEMATIC</div>
+                <div class="panel-content chart-container" style="height: 150px;">
+                    <canvas id="wyckoffChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE COLUMN -->
+        <div class="col-middle">
+            <div class="panel main-chart-panel" id="panel-6">
+                <div class="panel-header">6. BITCOIN / TETHERUS PERPETUAL CONTRACT - 1D - BINANCE &nbsp;&nbsp;&nbsp;<span class="ticker">O 67,842.1 H 68,512.0 L 66,987.5 C 67,210.3</span></div>
+                <div class="panel-content main-chart-container" id="mainChartContainer">
+                    <!-- Lightweight Chart goes here -->
+                </div>
+                <div class="panel-header sub-header">CVD (CUMULATIVE VOLUME DELTA)</div>
+                <div class="panel-content sub-chart-container" id="cvdChartContainer">
+                    <!-- CVD Chart goes here -->
+                </div>
+            </div>
+            
+            <div class="middle-bottom-grid">
+                <div class="panel" id="panel-11">
+                    <div class="panel-header">11. MULTI INDICATOR CONFLUENCE</div>
+                    <div class="panel-content">
+                        <table class="data-table small">
+                            <thead><tr><th>INDICATOR</th><th>TF</th><th>SIGNAL</th><th>STRENGTH</th></tr></thead>
+                            <tbody>
+                                <tr><td>EMA 20/50/200</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.78</td></tr>
+                                <tr><td>Ichimoku</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.72</td></tr>
+                                <tr><td>RSI (14)</td><td>1D</td><td class="gray">NEUTRAL</td><td class="gray">0.54</td></tr>
+                                <tr><td>Stochastic</td><td>1D</td><td class="gray">NEUTRAL</td><td class="gray">0.51</td></tr>
+                                <tr><td>MACD (12,26,9)</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.67</td></tr>
+                                <tr><td>DMI (14)</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.63</td></tr>
+                                <tr><td>BB (20,2)</td><td>1D</td><td class="gray">NEUTRAL</td><td class="gray">0.49</td></tr>
+                                <tr><td>ATR (14)</td><td>1D</td><td class="red">VOLATILE</td><td class="green">0.71</td></tr>
+                                <tr><td>OBV</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.66</td></tr>
+                                <tr><td>Volume</td><td>1D</td><td class="green">BULLISH</td><td class="green">0.70</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel" id="panel-12">
+                    <div class="panel-header">12. OSCILLATORS</div>
+                    <div class="panel-content oscillators-container">
+                        <div class="osc-chart-row">
+                            <span class="osc-label">RSI (14)</span>
+                            <div class="osc-canvas-wrapper"><canvas id="rsiChart"></canvas></div>
+                        </div>
+                        <div class="osc-chart-row">
+                            <span class="osc-label">MACD (12,26,9)</span>
+                            <div class="osc-canvas-wrapper"><canvas id="macdChart"></canvas></div>
+                        </div>
+                        <div class="osc-chart-row">
+                            <span class="osc-label">Stoch (14,3,3)</span>
+                            <div class="osc-canvas-wrapper"><canvas id="stochChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="panel-13">
+                    <div class="panel-header">13. MACHINE LEARNING MODELS</div>
+                    <div class="panel-content">
+                        <table class="data-table">
+                            <thead><tr><th>MODEL</th><th>PREDICTION</th><th>CONFIDENCE</th></tr></thead>
+                            <tbody>
+                                <tr><td>LSTM (Price)</td><td class="green">↑</td><td class="green">71.2%</td></tr>
+                                <tr><td>XGBoost (Direction)</td><td class="green">↑</td><td class="green">68.7%</td></tr>
+                                <tr><td>Random Forest</td><td class="green">↑</td><td class="green">65.4%</td></tr>
+                                <tr><td>Prophet (Trend)</td><td class="green">↑</td><td class="green">72.9%</td></tr>
+                                <tr><td>GPT Sentiment</td><td class="green">↑</td><td class="green">63.1%</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="ensemble-signal mt-2 text-center">
+                            ENSEMBLE SIGNAL: <span class="green bold">STRONG BUY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-right">
+            <div class="panel" id="panel-7">
+                <div class="panel-header">7. ORDERFLOW (DOM)</div>
+                <div class="panel-content dom-container">
+                    <table class="data-table dom-table">
+                        <thead><tr><th class="green">BID</th><th class="green">BID SIZE</th><th class="red">ASK SIZE</th><th class="red">ASK</th></tr></thead>
+                        <tbody>
+                            <tr><td class="green">67,215.0</td><td class="green">12.4</td><td class="red">11.8</td><td class="red">67,215.5</td></tr>
+                            <tr><td class="green">67,214.5</td><td class="green">18.7</td><td class="red">9.6</td><td class="red">67,216.0</td></tr>
+                            <tr><td class="green">67,214.0</td><td class="green">25.1</td><td class="red">14.2</td><td class="red">67,216.5</td></tr>
+                            <tr><td class="green">67,213.5</td><td class="green">31.6</td><td class="red">22.7</td><td class="red">67,217.0</td></tr>
+                            <tr><td class="green">67,213.0</td><td class="green">45.3</td><td class="red">33.8</td><td class="red">67,217.5</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="dom-summary flex-between mt-1 text-small">
+                        <span>Δ IMBALANCE: 18%</span>
+                        <span>VWAP: 67,198.7</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" id="panel-8">
+                <div class="panel-header">8. LIQUIDITY MAP (HEATMAP) 1D 1W 1M</div>
+                <div class="panel-content chart-container" style="height: 180px;">
+                    <canvas id="heatmapChart"></canvas>
+                </div>
+            </div>
+            <div class="panel" id="panel-9">
+                <div class="panel-header">9. FUNDING / LIQUIDATIONS</div>
+                <div class="panel-content">
+                    <div class="flex-between"><span>Funding Rate (8h)</span><span class="green">0.0102%</span></div>
+                    <div class="flex-between"><span>Long Liq. (24h)</span><span class="red">$24.7M</span></div>
+                    <div class="flex-between"><span>Short Liq. (24h)</span><span class="green">$31.2M</span></div>
+                    <div class="chart-container mt-1" style="height: 60px;">
+                        <canvas id="liqChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" id="panel-10">
+                <div class="panel-header">10. STRATEGY ENGINE (ALGO)</div>
+                <div class="panel-content flex-col align-center">
+                    <div style="font-size: 10px; margin-bottom: 5px; color: #aaa">FEAR & GREED INDEX</div>
+                    <div class="gauge-container" style="width: 150px; height: 100px; position: relative;">
+                        <canvas id="gaugeChart"></canvas>
+                        <div class="gauge-value" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -20%); font-size: 24px; font-weight: bold; color: #fff;">74</div>
+                        <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); color: #0f0; font-size: 12px;">GREED</div>
+                    </div>
+                    <ul class="algo-stats mt-2 text-left" style="width: 100%; list-style: none; padding: 0; font-size: 11px;">
+                        <li><span class="bullet gray"></span> ETF Inflows: <span class="gray">+$378M</span></li>
+                        <li><span class="bullet gray"></span> Binance Reserves: <span class="red">↓</span></li>
+                        <li><span class="bullet gray"></span> Whale Activity: <span class="green">↑</span></li>
+                        <li><span class="bullet gray"></span> Social Volume: <span class="green">↑↑</span></li>
+                        <li><span class="bullet gray"></span> News Sentiment: <span class="green">POSITIVE</span></li>
+                    </ul>
+                    <div class="overall-sentiment mt-2 text-center" style="width: 100%; border-top: 1px solid #333; padding-top: 10px;">
+                        Overall Sentiment: <span class="green bold">BULLISH</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="row-bottom">
+            <div class="panel" id="panel-15">
+                <div class="panel-header">15. PORTFOLIO RISK MANAGEMENT</div>
+                <div class="panel-content">
+                    <table class="data-table">
+                        <thead><tr><th>METRIC</th><th>VALUE</th><th>STATUS</th></tr></thead>
+                        <tbody>
+                            <tr><td>Portfolio Risk</td><td>1.82%</td><td class="green">✓</td></tr>
+                            <tr><td>VaR (95%)</td><td>2.35%</td><td class="green">✓</td></tr>
+                            <tr><td>Max Drawdown</td><td>8.17%</td><td class="orange">⚠</td></tr>
+                            <tr><td>Sharpe Ratio</td><td>1.92</td><td class="green">✓</td></tr>
+                            <tr><td>Calmar Ratio</td><td>3.48</td><td class="green">✓</td></tr>
+                            <tr><td>Kelly Criterion</td><td>2.31%</td><td class="green">✓</td></tr>
+                            <tr><td>Correlation BTC/ETH</td><td>0.78</td><td class="orange">⚠</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="panel-16">
+                <div class="panel-header">16. POSITION SIZING CALCULATOR</div>
+                <div class="panel-content flex-row">
+                    <table class="data-table small" style="width: 60%">
+                        <tbody>
+                            <tr><td>Account Equity</td><td class="green">$50,000</td></tr>
+                            <tr><td>Risk per Trade</td><td class="green">1.50%</td></tr>
+                            <tr><td>Entry Price</td><td>65,750</td></tr>
+                            <tr><td>Stop Loss</td><td>62,800</td></tr>
+                            <tr><td>Position Size (USDT)</td><td class="green">$1,237</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="chart-container-small" style="width: 40%; height: 100px;">
+                        <canvas id="positionChart"></canvas>
+                        <div style="text-align: center; font-size: 10px; margin-top: 5px;">0.0188</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" id="panel-17">
+                <div class="panel-header">17. SCENARIO ANALYSIS</div>
+                <div class="panel-content">
+                    <table class="data-table">
+                        <thead><tr><th>SCENARIO</th><th>PROB.</th><th>TARGET</th><th>R/R</th></tr></thead>
+                        <tbody>
+                            <tr><td class="green">BULL CASE</td><td>55%</td><td>78,500</td><td class="green">2.45</td></tr>
+                            <tr><td class="orange">BASE CASE</td><td>30%</td><td>69,800</td><td class="green">1.30</td></tr>
+                            <tr><td class="red">BEAR CASE</td><td>15%</td><td>58,400</td><td class="red">0.64</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-2" style="border-top: 1px solid #333; padding-top: 5px;">EXPECTANCY: <span class="green bold">+1.47R</span></div>
+                </div>
+            </div>
+            <div class="panel" id="panel-18">
+                <div class="panel-header">18. EXECUTION PLAN</div>
+                <div class="panel-content checklist" style="font-size: 11px;">
+                    <div><input type="checkbox" checked> 1. Επιβεβαίωση Regime</div>
+                    <div><input type="checkbox" checked> 2. Confluence Check</div>
+                    <div><input type="checkbox" checked> 3. Liquidity Sweep</div>
+                    <div><input type="checkbox" checked> 4. Orderflow Entry</div>
+                    <div><input type="checkbox" checked> 5. Risk Management</div>
+                    <div><input type="checkbox" checked> 6. Scaling Out Plan</div>
+                    <div><input type="checkbox" checked> 7. Review & Journal</div>
+                </div>
+            </div>
+            <div class="panel" id="panel-19">
+                <div class="panel-header">19. JOURNAL / PERFORMANCE</div>
+                <div class="panel-content flex-row">
+                    <table class="data-table small" style="width: 40%">
+                        <tbody>
+                            <tr><td>Win Rate</td><td class="green">62.4%</td></tr>
+                            <tr><td>Profit Factor</td><td class="green">2.18</td></tr>
+                            <tr><td>Total Trades</td><td class="green">142</td></tr>
+                            <tr><td>Net Profit</td><td class="green">18.7%</td></tr>
+                            <tr><td>Avg Win</td><td class="green">3.21%</td></tr>
+                            <tr><td>Avg Loss</td><td class="red">-1.47%</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="chart-container" style="width: 60%; height: 120px;">
+                        <canvas id="equityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
