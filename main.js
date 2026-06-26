@@ -240,46 +240,50 @@ function connectLive() {
     const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${SYMBOL.toLowerCase()}@kline_${INTERVAL}/${SYMBOL.toLowerCase()}@depth10@100ms`);
     
     ws.onmessage = (event) => {
-        const msg = JSON.parse(event.data);
-        
-        // KLINE UPDATE
-        if (msg.e === 'kline') {
-            const k = msg.k;
-            const time = k.t / 1000;
-            const open = parseFloat(k.o);
-            const high = parseFloat(k.h);
-            const low = parseFloat(k.l);
-            const close = parseFloat(k.c);
-            const vol = parseFloat(k.v);
-            const isGreen = close >= open;
+        try {
+            const msg = JSON.parse(event.data);
             
-            candleSeries.update({ time, open, high, low, close });
-            volumeSeries.update({ time, value: vol, color: isGreen ? 'rgba(0, 255, 163, 0.4)' : 'rgba(255, 51, 102, 0.4)' });
+            // KLINE UPDATE
+            if (msg.e === 'kline' && msg.k) {
+                const k = msg.k;
+                const time = k.t / 1000;
+                const open = parseFloat(k.o);
+                const high = parseFloat(k.h);
+                const low = parseFloat(k.l);
+                const close = parseFloat(k.c);
+                const vol = parseFloat(k.v);
+                const isGreen = close >= open;
+                
+                candleSeries.update({ time, open, high, low, close });
+                volumeSeries.update({ time, value: vol, color: isGreen ? 'rgba(0, 255, 163, 0.4)' : 'rgba(255, 51, 102, 0.4)' });
 
-            document.querySelector('.ticker').innerHTML = `O ${open.toFixed(1)} H ${high.toFixed(1)} L ${low.toFixed(1)} <span class="${isGreen ? 'green' : 'red'} bold">C ${close.toFixed(1)}</span>`;
+                document.querySelector('.ticker').innerHTML = `O ${open.toFixed(1)} H ${high.toFixed(1)} L ${low.toFixed(1)} <span class="${isGreen ? 'green' : 'red'} bold">C ${close.toFixed(1)}</span>`;
+                
+                // Auto update entry price for calculator if user hasn't typed
+                if(document.activeElement.id !== 'calc-entry') {
+                    document.getElementById('calc-entry').value = close.toFixed(1);
+                    calculatePositionSize();
+                }
+            }
             
-            // Auto update entry price for calculator if user hasn't typed
-            if(document.activeElement.id !== 'calc-entry') {
-                document.getElementById('calc-entry').value = close.toFixed(1);
-                calculatePositionSize();
+            // DEPTH UPDATE
+            if (msg.lastUpdateId && msg.asks && msg.bids && msg.asks.length >= 5 && msg.bids.length >= 5) { 
+                const asks = msg.asks.slice(0, 5).reverse();
+                const bids = msg.bids.slice(0, 5);
+                const tbody = document.querySelector('.dom-table tbody');
+                let html = '';
+                for(let i=0; i<5; i++) {
+                    html += `<tr>
+                        <td class="green">${parseFloat(bids[i][0]).toFixed(1)}</td>
+                        <td class="green">${parseFloat(bids[i][1]).toFixed(3)}</td>
+                        <td class="red">${parseFloat(asks[i][1]).toFixed(3)}</td>
+                        <td class="red">${parseFloat(asks[i][0]).toFixed(1)}</td>
+                    </tr>`;
+                }
+                tbody.innerHTML = html;
             }
-        }
-        
-        // DEPTH UPDATE
-        if (msg.lastUpdateId) { 
-            const asks = msg.asks.slice(0, 5).reverse();
-            const bids = msg.bids.slice(0, 5);
-            const tbody = document.querySelector('.dom-table tbody');
-            let html = '';
-            for(let i=0; i<5; i++) {
-                html += `<tr>
-                    <td class="green">${parseFloat(bids[i][0]).toFixed(1)}</td>
-                    <td class="green">${parseFloat(bids[i][1]).toFixed(3)}</td>
-                    <td class="red">${parseFloat(asks[i][1]).toFixed(3)}</td>
-                    <td class="red">${parseFloat(asks[i][0]).toFixed(1)}</td>
-                </tr>`;
-            }
-            tbody.innerHTML = html;
+        } catch(err) {
+            console.error("WS Parse Error:", err);
         }
     };
 
